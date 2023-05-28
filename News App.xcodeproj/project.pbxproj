@@ -13,6 +13,8 @@
 		83FC87302A23333E00456C3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FC872E2A23333E00456C3D /* Main.storyboard */; };
 		83FC87322A23334100456C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83FC87312A23334100456C3D /* Assets.xcassets */; };
 		83FC87352A23334100456C3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FC87332A23334100456C3D /* LaunchScreen.storyboard */; };
+		83FC87492A235BDD00456C3D /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC87472A235BDD00456C3D /* NewsCell.swift */; };
+		83FC874A2A235BDD00456C3D /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83FC87482A235BDD00456C3D /* NewsCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		83FC87312A23334100456C3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83FC87342A23334100456C3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83FC87362A23334100456C3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83FC87472A235BDD00456C3D /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		83FC87482A235BDD00456C3D /* NewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			children = (
 				83FC87282A23333E00456C3D /* AppDelegate.swift */,
 				83FC872A2A23333E00456C3D /* SceneDelegate.swift */,
+				83FC874B2A235C2D00456C3D /* Views */,
 				83FC872C2A23333E00456C3D /* ViewController.swift */,
 				83FC872E2A23333E00456C3D /* Main.storyboard */,
 				83FC87312A23334100456C3D /* Assets.xcassets */,
@@ -65,6 +70,15 @@
 				83FC87362A23334100456C3D /* Info.plist */,
 			);
 			path = "News App";
+			sourceTree = "<group>";
+		};
+		83FC874B2A235C2D00456C3D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				83FC87472A235BDD00456C3D /* NewsCell.swift */,
+				83FC87482A235BDD00456C3D /* NewsCell.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +141,7 @@
 			files = (
 				83FC87352A23334100456C3D /* LaunchScreen.storyboard in Resources */,
 				83FC87322A23334100456C3D /* Assets.xcassets in Resources */,
+				83FC874A2A235BDD00456C3D /* NewsCell.xib in Resources */,
 				83FC87302A23333E00456C3D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +155,7 @@
 			files = (
 				83FC872D2A23333E00456C3D /* ViewController.swift in Sources */,
 				83FC87292A23333E00456C3D /* AppDelegate.swift in Sources */,
+				83FC87492A235BDD00456C3D /* NewsCell.swift in Sources */,
 				83FC872B2A23333E00456C3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

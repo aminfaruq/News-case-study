@@ -28,18 +28,29 @@
                                 <color key="textColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kbz-8g-Nyw">
+                                <rect key="frame" x="0.0" y="171" width="393" height="647"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="snr-NK-XJW" secondAttribute="trailing" constant="20" id="28h-Yt-TGU"/>
                             <constraint firstItem="h8g-Pz-MI1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3aI-iQ-INO"/>
+                            <constraint firstItem="Kbz-8g-Nyw" firstAttribute="top" secondItem="snr-NK-XJW" secondAttribute="bottom" constant="30" id="EVS-j5-2XV"/>
                             <constraint firstItem="snr-NK-XJW" firstAttribute="top" secondItem="h8g-Pz-MI1" secondAttribute="bottom" constant="5" id="LVg-0B-NzM"/>
                             <constraint firstItem="h8g-Pz-MI1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="QtI-2h-Rx1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kbz-8g-Nyw" secondAttribute="trailing" id="ZLU-Wg-oUv"/>
+                            <constraint firstItem="Kbz-8g-Nyw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="giF-In-cmP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Kbz-8g-Nyw" secondAttribute="bottom" id="mrl-JF-MvS"/>
                             <constraint firstItem="snr-NK-XJW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sLl-Za-eZg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="h8g-Pz-MI1" secondAttribute="trailing" constant="20" id="tvh-7v-Eh3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Kbz-8g-Nyw" id="cYE-Mi-1JL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
