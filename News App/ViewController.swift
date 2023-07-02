@@ -6,6 +6,12 @@
 //
 
 import UIKit
+/*
+ Get api from
+ 
+ https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=API-KEY
+ 
+ */
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -17,52 +23,49 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
-        addArticle()
+        
+        fetchNews { result in
+            switch result {
+            case .success(let newsResponse):
+                // Access the news response object and its properties here
+                DispatchQueue.main.async {
+                    self.articles = newsResponse.articles
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("Error fetching news: \(error)")
+            }
+        }
     }
     
-    func addArticle() {
-        articles.append(Article(
-            source: Source(id: "reuters", name: "Reuters"),
-            author: "Callum Keown",
-            title: "United Airlines CEO says US in a 'business recession' but consumers 'strong' - Reuters.com",
-            description: "The United States is in a \"business recession\" but the consumer is \"strong\", Scott Kirby, chief executive of United Airlines (UAL.O), the world's largest carrier, told reporters at an aviat…",
-            url: "https://www.reuters.com/business/aerospace-defense/united-airlines-ceo-expresses-concern-over-competing-carriers-crossing-russia-2023-06-05/",
-            urlToImage: "https://www.reuters.com/resizer/DJWPfAGaQ7SRorgdtvyz57BDptU=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/ZVWRR7T23ZJNFMX2MRMJDKFMCE.jpg",
-            publishedAt: "2023-06-05",
-            content: "ISTANBUL, June 5 (Reuters) - The United States is in a \"business recession\" but the consumer is \"strong\", Scott Kirby, chief executive of United Airlines (UAL.O), the world's largest carrier, told re… [+2801 chars]"
-        ))
-        articles.append(Article(
-            source: Source(id: nil, name: "Barron's"),
-            author: "Callum Keown, Emily Dattilo",
-            title: "Palo Alto, Dish Network, C3.ai, EPAM Systems, and More Stock Market Movers - Barron's",
-            description: "Palo Alto Networks rises on news it will join S&P 500 Index later this month, replacing Dish Network, while EPAM Systems falls on cut to guidance.",
-            url: "https://www.barrons.com/articles/stock-market-movers-f48662b5",
-            urlToImage: "https://images.barrons.com/im-401574/social",
-            publishedAt: "2023-06-05",
-            content: "U.S. stock futures were mixed early Monday after the \r\nS&P 500\r\n enjoyed its best week since the end of March, helped by the strong May jobs report.\r\n Palo Alto Networks\r\n(ticker: PANW) stock cli… [+980 chars]"
-        ))
-        articles.append(Article(
-            source: Source(id: "reuters", name: "Reuters"),
-            author: "Callum Keown",
-            title: "United Airlines CEO says US in a 'business recession' but consumers 'strong' - Reuters.com",
-            description: "The United States is in a \"business recession\" but the consumer is \"strong\", Scott Kirby, chief executive of United Airlines (UAL.O), the world's largest carrier, told reporters at an aviat…",
-            url: "https://www.reuters.com/business/aerospace-defense/united-airlines-ceo-expresses-concern-over-competing-carriers-crossing-russia-2023-06-05/",
-            urlToImage: "https://www.reuters.com/resizer/DJWPfAGaQ7SRorgdtvyz57BDptU=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/ZVWRR7T23ZJNFMX2MRMJDKFMCE.jpg",
-            publishedAt: "2023-06-05",
-            content: "ISTANBUL, June 5 (Reuters) - The United States is in a \"business recession\" but the consumer is \"strong\", Scott Kirby, chief executive of United Airlines (UAL.O), the world's largest carrier, told re… [+2801 chars]"
-        ))
-        articles.append(Article(
-            source: Source(id: nil, name: "Barron's"),
-            author: "Callum Keown, Emily Dattilo",
-            title: "Palo Alto, Dish Network, C3.ai, EPAM Systems, and More Stock Market Movers - Barron's",
-            description: "Palo Alto Networks rises on news it will join S&P 500 Index later this month, replacing Dish Network, while EPAM Systems falls on cut to guidance.",
-            url: "https://www.barrons.com/articles/stock-market-movers-f48662b5",
-            urlToImage: "https://images.barrons.com/im-401574/social",
-            publishedAt: "2023-06-05",
-            content: "U.S. stock futures were mixed early Monday after the \r\nS&P 500\r\n enjoyed its best week since the end of March, helped by the strong May jobs report.\r\n Palo Alto Networks\r\n(ticker: PANW) stock cli… [+980 chars]"
-        ))
-        tableView.reloadData()
+    func fetchNews(completion: @escaping (Result<NewsResponse, Error>) -> Void) {
+        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=\(Constans.API_KEY)") else {
+            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let newsResponse = try decoder.decode(NewsResponse.self, from: data)
+                    completion(.success(newsResponse))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+            }
+        }
+        
+        task.resume()
     }
+   
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Article {
+struct Article: Codable {
     let source: Source?
     let author: String?
     let title: String?
@@ -18,7 +18,13 @@ struct Article {
     let content: String?
 }
 
-struct Source {
+struct Source: Codable {
     let id: String?
     let name: String?
+}
+
+struct NewsResponse: Codable {
+    let status: String
+    let totalResults: Int
+    let articles: [Article]
 }
