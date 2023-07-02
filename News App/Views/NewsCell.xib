@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="123"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image-cell " translatesAutoresizingMaskIntoConstraints="NO" id="Gg6-Aj-SOf">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rays" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gg6-Aj-SOf">
                         <rect key="frame" x="16" y="16" width="83" height="93"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="83" id="12C-zC-UhN"/>
@@ -66,12 +66,16 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="authorLabel" destination="UFQ-CD-u2V" id="Mlc-wo-zrh"/>
                 <outlet property="newsImageView" destination="Gg6-Aj-SOf" id="K7U-wB-HYk"/>
+                <outlet property="publisherlabel" destination="XhV-Nu-YCh" id="cle-R6-M4q"/>
+                <outlet property="releaseDateLabel" destination="e2N-6S-x7e" id="r78-5A-IcH"/>
+                <outlet property="titleLabel" destination="PJU-w8-1CW" id="1sP-dL-ba8"/>
             </connections>
             <point key="canvasLocation" x="124" y="47"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="image-cell " width="193" height="262"/>
+        <image name="rays" catalog="system" width="128" height="123"/>
     </resources>
 </document>
