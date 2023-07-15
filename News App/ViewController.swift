@@ -15,7 +15,8 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var articles : [Article] = []
+    
+    var viewModel = NewsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,46 +25,21 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "NewsCell")
         
-        fetchNews { result in
+        getData()
+    }
+    
+    func getData() {
+        viewModel.fetchNews { [weak self] result in
             switch result {
-            case .success(let newsResponse):
+            case .success:
                 // Access the news response object and its properties here
                 DispatchQueue.main.async {
-                    self.articles = newsResponse.articles
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 }
             case .failure(let error):
                 print("Error fetching news: \(error)")
             }
         }
-    }
-    
-    func fetchNews(completion: @escaping (Result<NewsResponse, Error>) -> Void) {
-        guard let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=\(Constans.API_KEY)") else {
-            completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    let newsResponse = try decoder.decode(NewsResponse.self, from: data)
-                    completion(.success(newsResponse))
-                } catch {
-                    completion(.failure(error))
-                }
-            } else {
-                completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
-            }
-        }
-        
-        task.resume()
     }
    
 }
@@ -71,12 +47,12 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        return viewModel.articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsCell", for: indexPath) as! NewsCell
-        let data = articles[indexPath.row]
+        let data = viewModel.articles[indexPath.row]
         
         cell.publisherlabel.text = data.source?.name
         cell.titleLabel.text = data.title
